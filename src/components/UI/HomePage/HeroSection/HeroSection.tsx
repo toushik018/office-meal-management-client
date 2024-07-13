@@ -1,64 +1,46 @@
-// components/HeroSection.js
+// components/HeroSection.tsx
 "use client";
 
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
-import { ImagesSlider } from "../../ImageSlider/ImageSlider";
+import { Button } from "@/components/UI/button";
+import Link from "next/link";
 
 const HeroSection = () => {
-  const images = [
-    "/assets/Images/slider.jpg",
-    "/assets/Images/slider2.jpg",
-    "/assets/Images/slider3.jpg",
-    "/assets/Images/slider4.jpg",
-    "/assets/Images/slider5.jpg",
-  ];
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
-      <ImagesSlider className="h-full" images={images}>
-        <motion.div
-          initial={{ opacity: 0, y: -80 }}
+    <div className="relative h-screen bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
+      <div className="absolute inset-0 bg-black opacity-30"></div>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
+        <motion.h1
+          className="text-5xl md:text-6xl font-extrabold mb-6"
+          initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="z-50 flex flex-col justify-center items-center"
+          transition={{ duration: 0.8 }}
         >
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{
-              fontWeight: "bold",
-              mb: 2,
-              backgroundClip: "text",
-              textFillColor: "transparent",
-              backgroundImage: "linear-gradient(to bottom, #ffffff, #cccccc)",
-            }}
-          >
-            Find Your Perfect Flat Mate Today!
-          </Typography>
-          <Typography
-            sx={{
-              mt: 2,
-              p: 2,
-              backgroundColor: "rgba(76, 175, 80, 0.7)",
-              color: "white",
-            }}
-          >
-            Share Your Flat Now
-          </Typography>
+          Office Meal Management
+        </motion.h1>
+        <motion.p
+          className="text-lg md:text-xl mb-8 max-w-2xl"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Simplify your meal planning and management at the workplace with our
+          comprehensive and user-friendly platform.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <Link href="/login">
+            <Button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-3 px-8 rounded-lg text-lg shadow-lg">
+              Get Started
+            </Button>
+          </Link>
         </motion.div>
-      </ImagesSlider>
-    </Box>
+      </div>
+    </div>
   );
 };
 

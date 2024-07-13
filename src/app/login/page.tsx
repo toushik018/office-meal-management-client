@@ -1,24 +1,38 @@
 "use client";
 
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import Link from "next/link";
-import { FieldValues } from "react-hook-form";
-import { userLogin } from "@/services/actions/userLogin";
-import { toast } from "sonner";
 import { useState } from "react";
-import { storeUserInfo } from "@/services/auth.service";
+import Link from "next/link";
+import { FieldValues, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FInput from "@/components/Forms/FInput";
-import FForm from "@/components/Forms/FForms";
-// import { useRouter } from "next/navigation";
+import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.service";
 import { validationSchema } from "@/types/validationSchemas/validationSchemas";
+import { Button } from "@/components/UI/button";
+import { Input } from "@/components/UI/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/UI/card";
+
+const defaultValues = {
+  email: "",
+  password: "",
+};
 
 const LoginPage = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const [message, setMessage] = useState<{
     text: string;
     type: "error" | "success";
   } | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(validationSchema),
+    defaultValues,
+  });
 
   const handleLogin = async (values: FieldValues) => {
     try {
@@ -36,108 +50,71 @@ const LoginPage = () => {
       console.error(err.message);
     }
   };
-
   return (
-    <Container>
-      <Stack
-        sx={{
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: 600,
-            width: "100%",
-            boxShadow: 1,
-            borderRadius: 1,
-            p: 4,
-            textAlign: "center",
-          }}
-        >
-          <Stack
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Box>
-              <Typography variant="h6" fontWeight={600}>
-                Flat Share Platform
-              </Typography>
-            </Box>
-          </Stack>
-
+    <div className="flex justify-center items-center h-screen bg-gray-50">
+      <Card className="max-w-md w-full shadow-md rounded-lg">
+        <CardHeader>
+          <CardTitle className="text-center text-xl font-semibold">
+            Login
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
           {message && (
-            <Box>
-              <Typography
-                sx={{
-                  backgroundColor: message.type === "error" ? "red" : "green",
-                  width: "50%",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  padding: "2px 4px",
-                  borderRadius: "2px",
-                  color: "white",
-                  marginTop: "5px",
-                }}
-              >
-                {message.text}
-              </Typography>
-            </Box>
-          )}
-
-          <Box>
-            <FForm
-              onSubmit={handleLogin}
-              resolver={zodResolver(validationSchema)}
-              defaultValues={{
-                email: "",
-                password: "",
-              }}
+            <div
+              className={`text-center p-2 rounded mb-4 ${
+                message.type === "error"
+                  ? "bg-red-500 text-white"
+                  : "bg-green-500 text-white"
+              }`}
             >
-              <Grid container spacing={2} my={1}>
-                <Grid item xs={12}>
-                  <FInput
-                    name="email"
-                    label="Email"
-                    type="email"
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FInput
-                    name="password"
-                    label="Password"
-                    type="password"
-                    fullWidth={true}
-                  />
-                </Grid>
-              </Grid>
-
-              <Typography mb={1} textAlign="end" component="p" fontWeight={300}>
-                <Link href="/forget-password">Forgot Password?</Link>
-              </Typography>
-
-              <Button
-                sx={{
-                  margin: "10px 0px",
-                }}
-                fullWidth={true}
-                type="submit"
-              >
-                Login
-              </Button>
-              <Typography component="p" fontWeight={300}>
-                Don&apos;t have an account?{" "}
-                <Link href="/register">Create an account</Link>
-              </Typography>
-            </FForm>
-          </Box>
-        </Box>
-      </Stack>
-    </Container>
+              {message.text}
+            </div>
+          )}
+          <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email
+              </label>
+              <Input
+                id="email"
+                {...register("email")}
+                type="email"
+                placeholder="Email"
+                className="mt-1 block w-full"
+              />
+              {errors.email && (
+                <span className="text-red-600 text-sm">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium">
+                Password
+              </label>
+              <Input
+                id="password"
+                {...register("password")}
+                type="password"
+                placeholder="Password"
+                className="mt-1 block w-full"
+              />
+              {errors.password && (
+                <span className="text-red-600 text-sm">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 text-white mt-4"
+            >
+              Login
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

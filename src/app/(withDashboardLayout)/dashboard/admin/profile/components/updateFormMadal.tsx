@@ -16,7 +16,7 @@ import {
 } from "@/components/UI/dialog";
 import { Label } from "@/components/UI/label";
 import { Input } from "@/components/UI/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 
 const UpdateFormModal = ({ open, handleClose, userData }: any) => {
   const { handleSubmit, control } = useForm({

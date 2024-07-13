@@ -1,12 +1,9 @@
 import { USER_ROLE } from "@/constants/role";
 import { DrawerItem, TUserRole } from "@/types";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import GroupIcon from "@mui/icons-material/Group";
-import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import KeyIcon from "@mui/icons-material/Key";
-import IosShareIcon from '@mui/icons-material/IosShare';
+import { FaTachometerAlt, FaUsers, FaUtensils, FaClipboardList } from "react-icons/fa";
+import { MdPersonOutline, MdVpnKey, MdShare } from "react-icons/md";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BiFoodMenu } from "react-icons/bi";
 
 export const drawerItems = (role: TUserRole) => {
     const roleMenus: DrawerItem[] = [];
@@ -14,41 +11,57 @@ export const drawerItems = (role: TUserRole) => {
         {
             title: "Profile",
             path: `${role}/profile`,
-            icon: PersonOutlineIcon,
+            icon: MdPersonOutline,
         },
         {
             title: "Change Password",
             path: "change-password",
-            icon: KeyIcon,
+            icon: MdVpnKey,
         },
     ];
+
     switch (role) {
         case USER_ROLE.ADMIN:
             roleMenus.push(
                 {
                     title: "Dashboard",
                     path: `${role}`,
-                    icon: DashboardIcon,
+                    icon: FaTachometerAlt,
+                },
+                {
+                    title: "Add Users",
+                    path: `${role}/add-user`,
+                    icon: FaUsers,
                 },
                 {
                     title: "Manage Users",
                     path: `${role}/manage-users`,
-                    icon: GroupIcon,
+                    icon: FaUsers,
                 },
                 {
                     title: "Add Items",
                     path: `${role}/add-items`,
-                    icon: GroupIcon,
+                    icon: FaUtensils,
                 },
                 {
                     title: "Manage Items",
                     path: `${role}/manage-items`,
-                    icon: GroupIcon,
+                    icon: FaUtensils,
                 },
                 {
                     title: "Manage Meals",
                     path: `${role}/manage-meals`,
-                    icon: GroupIcon,
+                    icon: BiFoodMenu,
+                },
+                {
+                    title: "Meal Schedule",
+                    path: `${role}/meal-schedule`,
+                    icon: MdShare,
+                },
+                {
+                    title: "Meals Choices",
+                    path: `${role}/meal-choices`,
+                    icon: FaClipboardList,
                 }
             );
             break;
@@ -58,22 +71,17 @@ export const drawerItems = (role: TUserRole) => {
                 {
                     title: "Dashboard",
                     path: `${role}`,
-                    icon: DashboardIcon,
+                    icon: FaTachometerAlt,
                 },
                 {
                     title: "Order Meal",
-                    path: `${role}/order-meal`,
-                    icon: AddBusinessIcon,
+                    path: `${role}/meal-order`,
+                    icon: AiOutlineShoppingCart,
                 },
                 {
                     title: "My Orders",
                     path: `${role}/my-orders`,
-                    icon: ApartmentIcon,
-                },
-                {
-                    title: "Meal Schedule",
-                    path: `${role}/meal-schedule`,
-                    icon: IosShareIcon,
+                    icon: FaClipboardList,
                 }
             );
             break;

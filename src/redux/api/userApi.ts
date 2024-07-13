@@ -68,7 +68,15 @@ const userApi = baseApi.injectEndpoints({
             },
             invalidatesTags: [tagTypes.user],
         }),
+        getAdminStats: build.query({
+            query: () => ({
+                url: "/admin/stats",
+                method: "GET",
+            }),
+            providesTags: [tagTypes.user],
+        }),
+
     }),
 });
 
-export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useUpdateUserRoleMutation, useUpdateUserStatusMutation, useDeleteUserMutation } = userApi;
+export const { useGetAllUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useUpdateUserRoleMutation, useUpdateUserStatusMutation, useDeleteUserMutation, useGetAdminStatsQuery } = userApi;

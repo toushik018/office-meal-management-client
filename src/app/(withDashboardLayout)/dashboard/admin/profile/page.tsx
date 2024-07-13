@@ -6,7 +6,7 @@ import UpdateFormModal from "./components/updateFormMadal";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/UI/card";
 import { Separator } from "@/components/UI/separator";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 
 
 const Profile = () => {

@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/UI/select";
 import { useAddItemsMutation } from "@/redux/api/items";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 
 const AddItems = () => {
   const [name, setName] = useState("");

@@ -10,3 +10,11 @@ export interface IMeal {
         category: string;
     }[];
 }
+export interface IMealSchedule {
+    id: string;
+    mealId: string;
+    date: string;
+    createdAt: string;
+    updatedAt: string;
+    meal: IMeal;
+}

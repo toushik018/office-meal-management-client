@@ -11,6 +11,6 @@ export const registerUser = async (data: any) => {
     });
 
     const userInfo = await res.json();
-   
+
     return userInfo;
 };

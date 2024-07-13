@@ -1,14 +1,14 @@
 export enum tagTypes {
     user = "user",
     item = "item",
-    orders = "orders",
+    order = "order",
     meal = "meal",
 }
 
 export const tagTypesList = [
     tagTypes.user,
     tagTypes.item,
-    tagTypes.orders,
+    tagTypes.order,
     tagTypes.meal,
 
 ]

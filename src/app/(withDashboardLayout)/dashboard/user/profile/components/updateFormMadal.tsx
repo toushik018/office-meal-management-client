@@ -1,39 +1,31 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  Stack,
-} from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useUpdateProfileMutation } from "@/redux/api/userApi";
 import { toast } from "sonner";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/UI/dialog";
+import { Label } from "@/components/UI/label";
+import { Input } from "@/components/UI/input";
+import { Button } from "@/components/UI/button";
 
 const UpdateFormModal = ({ open, handleClose, userData }: any) => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      username: userData?.username,
+      name: userData?.name,
       email: userData?.email,
-      contactNumber: userData?.contactNumber,
-      profilePhoto: userData?.profilePhoto,
     },
   });
+
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const onSubmit = async (data: any) => {
@@ -49,78 +41,55 @@ const UpdateFormModal = ({ open, handleClose, userData }: any) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Update Profile
-        </Typography>
+    <Dialog open={open} onOpenChange={handleClose}>
+      <DialogTrigger asChild></DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={2} mt={2}>
-            <Controller
-              name="username"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Username"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Email"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-            <Controller
-              name="contactNumber"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Contact Number"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-            <Controller
-              name="profilePhoto"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Profile Photo, paste the link"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={isLoading}
-            >
-              {isLoading ? "Updating..." : "Update"}
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} id="name" className="col-span-3" />
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="email" className="text-right">
+                Email
+              </Label>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    id="email"
+                    className="col-span-3"
+                    disabled
+                  />
+                )}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Save changes"}
             </Button>
-          </Stack>
+          </DialogFooter>
         </form>
-      </Box>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 

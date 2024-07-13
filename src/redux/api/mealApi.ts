@@ -2,7 +2,7 @@ import { tagTypes } from '../tagTypes';
 import { baseApi } from './baseApi';
 
 
-export const authApi = baseApi.injectEndpoints({
+export const mealApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         createMeal: build.mutation({
             query: (data) => ({
@@ -48,21 +48,13 @@ export const authApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.meal],
         }),
-        // deleteItem: build.mutation({
-        //     query: ({ id }) => ({
-        //         url: `/item/${id}`,
-        //         method: 'DELETE',
-        //     }),
-        //     invalidatesTags: [tagTypes.item],
-        // }),
-        // updateItem: build.mutation({
-        //     query: (data) => ({
-        //         url: `/item/${data.id}`,
-        //         method: 'PUT',
-        //         data: data,
-        //     }),
-        //     invalidatesTags: [tagTypes.item],
-        // }),
+        getMealChoicesForUsers: build.query({
+            query: () => ({
+                url: "/meals/meal-choices",
+                method: "GET",
+            }),
+            providesTags: [tagTypes.meal],
+        }),
     }),
 });
 
@@ -71,6 +63,7 @@ export const {
     useGetAllMealsQuery,
     useDeleteMealMutation,
     useScheduleMealMutation,
-    useUpdateMealMutation
+    useUpdateMealMutation,
+    useGetMealChoicesForUsersQuery
 
-} = authApi;
+} = mealApi;

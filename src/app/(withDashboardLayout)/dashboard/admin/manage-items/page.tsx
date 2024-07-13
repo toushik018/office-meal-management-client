@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 import { Input } from "@/components/UI/input";
 import {
   Table,

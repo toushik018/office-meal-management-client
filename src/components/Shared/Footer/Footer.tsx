@@ -1,35 +1,23 @@
-// components/Footer.js
-import React from "react";
-import { Container, Box, Typography, Link } from "@mui/material";
-
 const Footer = () => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        bgcolor: "primary.main",
-        color: "white",
-        py: 3,
-        mt: "auto",
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography variant="body1" align="center" color="white">
-          © 2024 Flat Share. All rights reserved.
-        </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
-          <Link href="#" color="inherit" sx={{ mx: 2 }}>
+    <div className="w-full bg-gray-800 text-white py-4 mt-auto text-center">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-sm">
+          © 2024 Office Meal Management. All rights reserved.
+        </p>
+        <div className="flex justify-center mt-2 space-x-4">
+          <a href="#" className="text-white hover:underline">
             Terms of Use
-          </Link>
-          <Link href="#" color="inherit" sx={{ mx: 2 }}>
+          </a>
+          <a href="#" className="text-white hover:underline">
             Privacy Policy
-          </Link>
-          <Link href="#" color="inherit" sx={{ mx: 2 }}>
+          </a>
+          <a href="#" className="text-white hover:underline">
             Contact
-          </Link>
-        </Box>
-      </Container>
-    </Box>
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
 

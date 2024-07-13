@@ -1,8 +1,8 @@
 import { logoutUser } from "@/services/actions/logoutUser";
 import { getUserInfo, removeUser } from "@/services/auth.service";
-import { Button } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "../button";
 
 const AuthButton = () => {
   const userInfo = getUserInfo();
@@ -14,13 +14,15 @@ const AuthButton = () => {
   return (
     <>
       {userInfo?.id ? (
-        <Button color="error" onClick={handleLogOut} sx={{ mx: 2 }}>
+        <Button variant="destructive" onClick={handleLogOut}>
           Logout
         </Button>
       ) : (
-        <Button component={Link} sx={{ mx: 2 }} href="/login">
-          Login
-        </Button>
+        <Link href="/login">
+          <Button variant="outline" className="bg-green-300">
+            Login
+          </Button>
+        </Link>
       )}
     </>
   );
